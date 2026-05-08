@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDLC Meeting Cadence Guide | 2-Week Sprint Model</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --primary: #1f4e79;
+      --primary-dark: #163956;
+      --accent: #2f80ed;
+      --green: #2e7d32;
+      --orange: #ef8b25;
+      --red: #c62828;
+      --purple: #6a1b9a;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #dbe4f0;
+      --soft-blue: #eaf3ff;
+      --soft-green: #edf8ef;
+      --soft-orange: #fff4e8;
+      --soft-purple: #f4eafd;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border-radius: 28px;
+      padding: 44px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      max-width: 900px;
+      font-size: 18px;
+      opacity: 0.95;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .hero-stat {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 18px;
+      padding: 18px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-stat span {
+      display: block;
+      font-size: 13px;
+      opacity: 0.8;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-stat strong { font-size: 24px; }
+
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      color: var(--primary);
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+
+    .section h3 {
+      color: var(--primary-dark);
+      font-size: 20px;
+      margin: 18px 0 8px;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 17px;
+      margin-bottom: 18px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(9, minmax(110px, 1fr));
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .flow-step {
+      background: var(--soft-blue);
+      border: 1px solid #c7ddf7;
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--primary-dark);
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -13px;
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .card.blue { background: var(--soft-blue); }
+    .card.green { background: var(--soft-green); }
+    .card.orange { background: var(--soft-orange); }
+    .card.purple { background: var(--soft-purple); }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--primary);
+      color: white;
+      font-size: 14px;
+    }
+
+    tr:nth-child(even) td { background: #f8fbff; }
+
+    ul {
+      padding-left: 22px;
+      margin-top: 10px;
+    }
+
+    li { margin-bottom: 8px; }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .day {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      background: white;
+      min-height: 150px;
+    }
+
+    .day strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .meeting-pill {
+      display: block;
+      background: var(--soft-blue);
+      color: var(--primary-dark);
+      padding: 8px 10px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .workflow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .workflow span {
+      background: var(--soft-blue);
+      color: var(--primary-dark);
+      border: 1px solid #c7ddf7;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .callout {
+      border-left: 6px solid var(--accent);
+      background: var(--soft-blue);
+      padding: 18px 20px;
+      border-radius: 16px;
+      margin: 18px 0;
+    }
+
+    .danger {
+      border-left-color: var(--red);
+      background: #fff0f0;
+    }
+
+    .success {
+      border-left-color: var(--green);
+      background: var(--soft-green);
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 30px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 1000px) {
+      .hero-grid, .three-col, .two-col, .calendar { grid-template-columns: 1fr 1fr; }
+      .flow { grid-template-columns: repeat(3, minmax(130px, 1fr)); }
+    }
+
+    @media (max-width: 700px) {
+      .hero { padding: 28px; }
+      .hero h1 { font-size: 32px; }
+      .hero-grid, .three-col, .two-col, .calendar { grid-template-columns: 1fr; }
+      .section { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>SDLC Meeting Cadence Guide</h1>
+      <p>A full 2-week sprint operating model for planning, building, testing, reviewing, releasing, and improving work across a structured project delivery team.</p>
+      <div class="hero-grid">
+        <div class="hero-stat"><span>Sprint Length</span><strong>2 Weeks</strong></div>
+        <div class="hero-stat"><span>Core Rhythm</span><strong>Plan → Build → Test</strong></div>
+        <div class="hero-stat"><span>Key Gate</span><strong>QA Approval</strong></div>
+        <div class="hero-stat"><span>Outcome</span><strong>Predictable Delivery</strong></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>1. SDLC Lifecycle Flow</h2>
+      <p class="lead">This is the recommended end-to-end flow from intake through release and continuous improvement.</p>
+      <div class="flow">
+        <div class="flow-step">Intake</div>
+        <div class="flow-step">Discovery</div>
+        <div class="flow-step">Planning</div>
+        <div class="flow-step">Sprint Execution</div>
+        <div class="flow-step">Development</div>
+        <div class="flow-step">QA Testing</div>
+        <div class="flow-step">SME / UAT Review</div>
+        <div class="flow-step">Release Candidate</div>
+        <div class="flow-step">Done</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>2. Jira Workflow Setup</h2>
+      <p class="lead">Use a workflow that shows the real delivery path. The goal is to make status visible without needing extra meetings just to ask where work stands.</p>
+      <div class="workflow">
+        <span>Backlog</span>
+        <span>Ready for Sprint</span>
+        <span>In Progress</span>
+        <span>Internal Review</span>
+        <span>QA Testing</span>
+        <span>QA Approval</span>
+        <span>SME / UAT Review</span>
+        <span>Release Candidate</span>
+        <span>Done</span>
+      </div>
+      <div class="callout">
+        Add side statuses like Blocked, On Hold, and Needs Clarification so work does not get hidden inside In Progress.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>3. Two-Week Sprint Calendar</h2>
+      <p class="lead">This cadence keeps the team moving while still giving enough time for planning, development, QA, review, and retro.</p>
+      <h3>Week 1</h3>
+      <div class="calendar">
+        <div class="day"><strong>Monday</strong><span class="meeting-pill">Sprint Planning</span><span class="meeting-pill">Daily Standup</span></div>
+        <div class="day"><strong>Tuesday</strong><span class="meeting-pill">Daily Standup</span><span class="meeting-pill">Backlog Refinement</span></div>
+        <div class="day"><strong>Wednesday</strong><span class="meeting-pill">Daily Standup</span><span class="meeting-pill">Mid-Sprint Checkpoint</span></div>
+        <div class="day"><strong>Thursday</strong><span class="meeting-pill">Daily Standup</span><span class="meeting-pill">Backlog Refinement</span></div>
+        <div class="day"><strong>Friday</strong><span class="meeting-pill">Daily Standup</span><span class="meeting-pill">Delivery Sync</span></div>
+      </div>
+      <h3>Week 2</h3>
+      <div class="calendar">
+        <div class="day"><strong>Monday</strong><span class="meeting-pill">Daily Standup</span><span class="meeting-pill">Execution Review</span></div>
+        <div class="day"><strong>Tuesday</strong><span class="meeting-pill">Daily Standup</span><span class="meeting-pill">Release Prep</span></div>
+        <div class="day"><strong>Wednesday</strong><span class="meeting-pill">Daily Standup</span><span class="meeting-pill">QA Validation</span></div>
+        <div class="day"><strong>Thursday</strong><span class="meeting-pill">Daily Standup</span><span class="meeting-pill">Release Readiness</span></div>
+        <div class="day"><strong>Friday</strong><span class="meeting-pill">Sprint Review</span><span class="meeting-pill">Retrospective</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>4. Meeting Cadence Details</h2>
+      <div class="three-col">
+        <div class="card blue">
+          <span class="tag">Before Sprint</span>
+          <h3>Backlog Refinement</h3>
+          <p>Prepare upcoming work before sprint planning. Clarify requirements, split large stories, estimate effort, and confirm acceptance criteria.</p>
+          <ul>
+            <li>Cadence: 1 to 2 times per sprint</li>
+            <li>Duration: 60 minutes</li>
+            <li>Output: Sprint-ready stories</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <span class="tag">Sprint Start</span>
+          <h3>Sprint Planning</h3>
+          <p>Lock the sprint goal, review team capacity, select work, confirm ownership, and identify sprint risks.</p>
+          <ul>
+            <li>Cadence: Every 2 weeks</li>
+            <li>Duration: 1 to 2 hours</li>
+            <li>Output: Committed sprint backlog</li>
+          </ul>
+        </div>
+        <div class="card orange">
+          <span class="tag">Daily</span>
+          <h3>Daily Standup</h3>
+          <p>Keep the team aligned without turning it into a long status meeting. Blockers are captured and solved after the call.</p>
+          <ul>
+            <li>Cadence: Daily</li>
+            <li>Duration: 15 minutes</li>
+            <li>Output: Clear daily execution path</li>
+          </ul>
+        </div>
+        <div class="card purple">
+          <span class="tag">Mid-Sprint</span>
+          <h3>Mid-Sprint Checkpoint</h3>
+          <p>Review sprint health before it is too late. Look at burndown, blockers, risks, QA concerns, and story movement.</p>
+          <ul>
+            <li>Cadence: Once per sprint</li>
+            <li>Duration: 30 to 60 minutes</li>
+            <li>Output: Risk mitigation plan</li>
+          </ul>
+        </div>
+        <div class="card blue">
+          <span class="tag">End Sprint</span>
+          <h3>QA / Release Readiness</h3>
+          <p>Confirm whether the work is actually releasable. Review defects, severity, acceptance criteria, and release candidate status.</p>
+          <ul>
+            <li>Cadence: End of sprint</li>
+            <li>Duration: 30 to 60 minutes</li>
+            <li>Output: Approved release candidate</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <span class="tag">Close Sprint</span>
+          <h3>Sprint Review + Retro</h3>
+          <p>Demo completed work, gather feedback, and improve the process. Retro actions should become real tracked tasks.</p>
+          <ul>
+            <li>Cadence: Every sprint</li>
+            <li>Duration: 60 to 90 minutes total</li>
+            <li>Output: Stakeholder feedback and improvements</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>5. Recommended Governance Cadence</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Cadence</th>
+            <th>Meeting</th>
+            <th>Purpose</th>
+            <th>Typical Audience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Daily</td><td>Daily Standup</td><td>Synchronize work, identify blockers, and keep delivery moving.</td><td>Delivery team</td></tr>
+          <tr><td>Weekly</td><td>RAID Review</td><td>Review risks, assumptions, issues, and dependencies.</td><td>PM, leads, QA, stakeholders as needed</td></tr>
+          <tr><td>Weekly</td><td>Leadership Sync</td><td>Review project health, staffing, escalations, and executive risks.</td><td>PMO, production leadership, department leads</td></tr>
+          <tr><td>Bi-Weekly</td><td>Sprint Review</td><td>Demo completed work and collect stakeholder feedback.</td><td>Stakeholders, SMEs, delivery team</td></tr>
+          <tr><td>Monthly</td><td>Portfolio Review</td><td>Review schedule, budget, revenue forecasting, capacity, and roadmap health.</td><td>PMO leadership and executives</td></tr>
+          <tr><td>As Needed</td><td>Change Control Board</td><td>Approve or reject scope, schedule, budget, or resource-impacting changes.</td><td>PM, sponsor, product owner, leads</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>6. Definitions of Ready and Done</h2>
+      <div class="two-col">
+        <div class="card blue">
+          <h3>Definition of Ready</h3>
+          <p>A story should not enter a sprint unless it is ready to be worked.</p>
+          <ul>
+            <li>Description is complete</li>
+            <li>Acceptance criteria are clear</li>
+            <li>Dependencies are identified</li>
+            <li>Assets or references are available</li>
+            <li>Estimate is completed</li>
+            <li>SME or stakeholder questions are resolved</li>
+          </ul>
+        </div>
+        <div class="card green">
+          <h3>Definition of Done</h3>
+          <p>A story should not move to Done until it has passed all required quality gates.</p>
+          <ul>
+            <li>Development is complete</li>
+            <li>Peer review is complete</li>
+            <li>QA has passed</li>
+            <li>Acceptance criteria are validated</li>
+            <li>Documentation is updated</li>
+            <li>Stakeholder or SME approval is complete when required</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>7. Sprint Metrics</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>What It Tells You</th>
+            <th>Why It Matters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Velocity</td><td>How much the team usually completes per sprint.</td><td>Helps forecast future work.</td></tr>
+          <tr><td>Burndown</td><td>Whether sprint work is trending toward completion.</td><td>Shows sprint health early.</td></tr>
+          <tr><td>Blocked Stories</td><td>How much work is stuck.</td><td>Highlights dependency or decision issues.</td></tr>
+          <tr><td>Cycle Time</td><td>How long work takes from start to finish.</td><td>Shows workflow efficiency.</td></tr>
+          <tr><td>QA Pass Rate</td><td>How often work passes testing without rework.</td><td>Shows build quality.</td></tr>
+          <tr><td>Escaped Defects</td><td>Defects found after QA or release.</td><td>Shows quality risk.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>8. Meeting Setup Templates</h2>
+      <div class="two-col">
+        <div class="card">
+          <h3>Sprint Planning Agenda</h3>
+          <ul>
+            <li>Review sprint goal</li>
+            <li>Review team capacity</li>
+            <li>Review priority backlog items</li>
+            <li>Confirm estimates and ownership</li>
+            <li>Identify risks and dependencies</li>
+            <li>Commit sprint backlog</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Daily Standup Questions</h3>
+          <ul>
+            <li>What did I complete yesterday?</li>
+            <li>What am I working on today?</li>
+            <li>What is blocking me?</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Release Readiness Agenda</h3>
+          <ul>
+            <li>Review stories targeted for release</li>
+            <li>Review open defects</li>
+            <li>Confirm QA approval</li>
+            <li>Confirm release notes</li>
+            <li>Confirm rollback plan if needed</li>
+            <li>Approve release candidate</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Retro Format</h3>
+          <ul>
+            <li>What went well?</li>
+            <li>What did not go well?</li>
+            <li>What should we improve next sprint?</li>
+            <li>Who owns each improvement action?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>9. Best Practices</h2>
+      <div class="callout success">Keep stories small, protect the sprint once it starts, involve QA early, and never let retrospectives become meetings with no follow-up actions.</div>
+      <div class="callout danger">Watch for the common failure points: unclear requirements, overloaded teams, subjective QA feedback, scope creep, weak handoffs, and leadership surprises.</div>
+    </section>
+
+    <section class="section">
+      <h2>10. What Good Looks Like</h2>
+      <p class="lead">A mature SDLC cadence should feel calm, predictable, transparent, and measurable. Leadership should not need to constantly ask where the project stands because the board, meetings, metrics, and governance rhythm already answer that.</p>
+    </section>
+
+    <div class="footer">SDLC 2-Week Sprint Cadence Guide | Prepared for PMO delivery structure</div>
+  </main>
+</body>
+</html>
